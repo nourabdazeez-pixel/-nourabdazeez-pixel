@@ -1,1 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Store Landing Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        section > p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .products-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            width: 280px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 180px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #fff;
+            z-index: 10;
+        }
+
+        .label.available {
+            background-color: #28a745;
+        }
+
+        .label.not-available {
+            background-color: #dc3545;
+        }
+
+        .product-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .buy-btn {
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .buy-btn:hover {
+            background-color: #4338ca;
+        }
+
+        .upgrade-section {
+            background-color: #eef2ff;
+            border-radius: 15px;
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 60px;
+        }
+
+        .upgrade-content {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .upgrade-content p {
+            margin-bottom: 25px;
+        }
+
+        .cta-btn {
+            background-color: #4f46e5;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .cta-btn:hover {
+            background-color: #4338ca;
+        }
+
+        .help-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .help-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .why-choose-us {
+            padding-bottom: 100px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .features-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            width: 300px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #4f46e5;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .product-card, .feature-card {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .upgrade-section {
+                padding: 40px 15px;
+                margin: 0 15px 40px 15px;
+            }
+            
+            .help-btn {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="help-btn" aria-label="Help">
+        <i class="fa-solid fa-question"></i>
+    </button>
+
+    <section class="products-section">
+        <h2>Our Laptops</h2>
+        <p>Choose your next laptop from our collection.</p>
+        
+        <div class="products-container">
+            <div class="product-card">
+                <div class="image-container">
+                    <img src="https://via.placeholder.com/300x200?text=HP+Pavilion" alt="HP Pavilion">
+                    <span class="label available">Available</span>
+                </div>
+                <div class="product-info">
+                    <h3>HP Pavilion</h3>
+                    <p>A great laptop for studying, browsing, and everyday tasks.</p>
+                    <span class="price">$550</span>
+                    <button class="buy-btn">Buy Now</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="image-container">
+                    <img src="https://via.placeholder.com/300x200?text=Dell+Inspiron" alt="Dell Inspiron">
+                    <span class="label not-available">Not Available</span>
+                </div>
+                <div class="product-info">
+                    <h3>Dell Inspiron</h3>
+                    <p>A practical choice for work, online classes, and productivity.</p>
+                    <span class="price">$650</span>
+                    <button class="buy-btn">Buy Now</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="image-container">
+                    <img src="https://via.placeholder.com/300x200?text=Lenovo+IdeaPad" alt="Lenovo IdeaPad">
+                    <span class="label available">Available</span>
+                </div>
+                <div class="product-info">
+                    <h3>Lenovo IdeaPad</h3>
+                    <p>A simple and reliable laptop for everyday use.</p>
+                    <span class="price">$600</span>
+                    <button class="buy-btn">Buy Now</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="image-container">
+                    <img src="https://via.placeholder.com/300x200?text=ASUS+Vivobook" alt="ASUS Vivobook">
+                    <span class="label available">Available</span>
+                </div>
+                <div class="product-info">
+                    <h3>ASUS Vivobook</h3>
+                    <p>A stylish and powerful laptop for work and play.</p>
+                    <span class="price">$700</span>
+                    <button class="buy-btn">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="upgrade-section">
+        <div class="upgrade-content">
+            <h2>Upgrade Your Setup Today!</h2>
+            <p>Find the laptop that matches your needs. Explore our collection and choose your next device.</p>
+            <button class="cta-btn">View Collection</button>
+        </div>
+    </section>
+
+    <section class="why-choose-us">
+        <div class="section-header">
+            <h2>Why Choose StackX5 Store?</h2>
+            <p>We provide the best experience for our customers.</p>
+        </div>
+        
+        <div class="features-container">
+            <div class="feature-card">
+                <i class="fa-solid fa-laptop-medical feature-icon"></i>
+                <h3>Quality Products</h3>
+                <p>We offer only the highest quality laptops from trusted brands.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-tags feature-icon"></i>
+                <h3>Great Prices</h3>
+                <p>Competitive pricing to ensure you get the best value for your money.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-headset feature-icon"></i>
+                <h3>Customer Support</h3>
+                <p>Our dedicated team is here to help you 24/7 with any inquiries.</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+  </html>
